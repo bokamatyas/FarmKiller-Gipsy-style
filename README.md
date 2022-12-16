@@ -1,4 +1,4 @@
-# Game name : Prison Break Gipsy style
+# Game name : Prison Break *Gipsy* style
 
 - Bóka Mátyás
 - Kiss Marcell
