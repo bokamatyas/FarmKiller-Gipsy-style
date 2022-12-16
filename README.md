@@ -1,1 +1,5 @@
-# J-t-kN-v
+# Game name
+
+-Bóka Mátyás
+-Kiss Marcell
+-Dremák Olivér
