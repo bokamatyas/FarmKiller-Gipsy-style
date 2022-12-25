@@ -9,6 +9,7 @@ const charactersWrap = document.querySelector('.characters-wrap');
 const winner = document.querySelector('.winner');
 
 const current = document.querySelector('#current');
+const rassWrap = document.querySelector('.rass-wrap');
 
 
 let rowNumber = 10;
@@ -149,8 +150,8 @@ function createButtonsToSelectRass(){
     let btnFekete = document.createElement('button');
     btnFekete.className = 'feketekGomb';
     btnFekete.innerHTML = 'Cigány karakterek';
-    charactersWrap.append(btnFeher);
-    charactersWrap.append(btnFekete);
+    rassWrap.append(btnFeher);
+    rassWrap.append(btnFekete);
     btnFeher.addEventListener('click', mutatFeherKarakterek);
     btnFekete.addEventListener('click', mutatFeketeKarakterek);
 }
@@ -167,6 +168,7 @@ function selectedPlayer(){
         charactersWrap.innerHTML = "";
         charactersWrap.style.display = "none";
         diceImg.disabled = false;
+        rassWrap.innerHTML = "";
     } 
 }
 
