@@ -45,6 +45,8 @@ let p2 = new Player('player2',1, 'img/feher/ember2.png');
 let p3 = new Player('player3',1, 'img/feher/ember3.png');
 let p4 = new Player('player4',1, 'img/feher/ember4.png');
 
+let playerCollection = [p1, p2, p3, p4];
+
 
 function createGrid() {
     let div;
@@ -116,27 +118,31 @@ function nextPlayer(){
 
 function mutatFeherKarakterek(){
     charactersWrap.innerHTML = '';
+    charactersWrap.style.marginBottom="300px";
     for (let index = 1; index <= 4; index++){
         image = document.createElement('img');
         image.src = `img/feher/ember${index}.png`;
         image.className = 'characterImage';
+        image.addEventListener('click', selectedPlayer);
         charactersWrap.append(image);
     }
 }
 
-
 function mutatFeketeKarakterek(){
     charactersWrap.innerHTML = '';
+    charactersWrap.style.marginBottom="300px";
     for (let index = 1; index <= 4; index++){
         image = document.createElement('img');
         image.src = `img/cigany/blackguy${index}.png`;
         image.className = 'characterImage';
+        image.addEventListener('click', selectedPlayer);
         charactersWrap.append(image);
     }
 }
 
 function createButtonsToSelectRass(){
     charactersWrap.innerHTML = '';
+    charactersWrap.style.display = "block";
     let btnFeher = document.createElement('button');
     btnFeher.className = 'feherekGomb';
     btnFeher.innerHTML = 'Feher karakterek';
@@ -149,12 +155,26 @@ function createButtonsToSelectRass(){
     btnFekete.addEventListener('click', mutatFeketeKarakterek);
 }
 
+function selectedPlayer(){
+    let image = "url("+`${this.src}`+")";
+    playerCollection[currentPlayer-1].player.style.content = image;
+    movePlayer(playerCollection[currentPlayer-1]);
+    currentPlayer++;
+    current.innerHTML = `${currentPlayer}. játékos`;
+    if (currentPlayer > amountOfPlayers){
+        currentPlayer = 1;
+        current.innerHTML = `${currentPlayer}. játékos`;
+        charactersWrap.innerHTML = "";
+        charactersWrap.style.display = "none";
+    } 
+}
+
 function createPlayerSeletionFor2(){
     amountOfPlayers = 2;
     containsButtons.innerHTML = '';
     createButtonsToSelectRass();
-    movePlayer(p1);
-    movePlayer(p2);
+    //movePlayer(p1);
+    //movePlayer(p2);
     diceImg.disabled = false;
 }
 
@@ -162,9 +182,9 @@ function createPlayerSeletionFor3(){
     amountOfPlayers = 3;
     containsButtons.innerHTML = '';
     createButtonsToSelectRass();
-    movePlayer(p1);
-    movePlayer(p2);
-    movePlayer(p3);
+    //movePlayer(p1);
+    //movePlayer(p2);
+    //movePlayer(p3);
     diceImg.disabled = false;
 }
 
@@ -172,10 +192,10 @@ function createPlayerSeletionFor4(){
     amountOfPlayers = 4;
     containsButtons.innerHTML = '';
     createButtonsToSelectRass();
-    movePlayer(p1);
-    movePlayer(p2);
-    movePlayer(p3);
-    movePlayer(p4);
+    //movePlayer(p1);
+    //movePlayer(p2);
+    //movePlayer(p3);
+    //movePlayer(p4);
     diceImg.disabled = false;
 }
 

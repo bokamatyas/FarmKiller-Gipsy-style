@@ -21,6 +21,11 @@
     border: 1px solid black;
 }
 
+.characters-wrap{
+    /* margin-bottom: 300px; */
+    display: none;
+}
+
 .grid-container{
     width: 1200px;
 }
