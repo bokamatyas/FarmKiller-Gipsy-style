@@ -8,10 +8,13 @@ const btn4player = document.querySelector('#btn4player');
 const charactersWrap = document.querySelector('.characters-wrap');
 const winner = document.querySelector('.winner');
 
+const current = document.querySelector('#current');
+
 
 let rowNumber = 10;
 let columnNumber = 12;
 currentPlayer = 1;
+let amountOfPlayers;
 
 
 let track = [
@@ -33,7 +36,7 @@ class Player {
         this.nextPosition = nextPosition;
         this.player = document.createElement('div');
         this.player.className = className;
-        this.player.style.content = `url(${kepUrlBelseje})`
+        this.player.style.content = `url(${kepUrlBelseje})`;
     }
 }
 
@@ -86,7 +89,8 @@ function mehetE(step, jatekos){
             containsDice.innerHTML = '';
         }
         else{
-            diceImg.src = `img/Dice/dice${step}.png`;
+            let background = "url("+`img/Dice/dice${step}.png`+")";
+            diceImg.style.backgroundImage = background;
         }
     }
 }
@@ -106,8 +110,8 @@ function nextPlayer(){
         mehetE(step, p4);
     }
     currentPlayer++;
-    if (currentPlayer > 4) currentPlayer = 1;
-    btnChangePlayer.innerHTML = `${currentPlayer}. játékos`;
+    if (currentPlayer > amountOfPlayers) currentPlayer = 1;
+    current.innerHTML = `${currentPlayer}. játékos`;
 }
 
 function mutatFeherKarakterek(){
@@ -138,7 +142,7 @@ function createButtonsToSelectRass(){
     btnFeher.innerHTML = 'Feher karakterek';
     let btnFekete = document.createElement('button');
     btnFekete.className = 'feketekGomb';
-    btnFekete.innerHTML = 'Cigány karakterek'
+    btnFekete.innerHTML = 'Cigány karakterek';
     charactersWrap.append(btnFeher);
     charactersWrap.append(btnFekete);
     btnFeher.addEventListener('click', mutatFeherKarakterek);
@@ -146,28 +150,33 @@ function createButtonsToSelectRass(){
 }
 
 function createPlayerSeletionFor2(){
+    amountOfPlayers = 2;
     containsButtons.innerHTML = '';
     createButtonsToSelectRass();
     movePlayer(p1);
     movePlayer(p2);
+    diceImg.disabled = false;
 }
 
 function createPlayerSeletionFor3(){
+    amountOfPlayers = 3;
     containsButtons.innerHTML = '';
     createButtonsToSelectRass();
     movePlayer(p1);
     movePlayer(p2);
-    movePlayer(p3)
+    movePlayer(p3);
+    diceImg.disabled = false;
 }
 
 function createPlayerSeletionFor4(){
+    amountOfPlayers = 4;
     containsButtons.innerHTML = '';
     createButtonsToSelectRass();
     movePlayer(p1);
     movePlayer(p2);
     movePlayer(p3);
     movePlayer(p4);
-
+    diceImg.disabled = false;
 }
 
 
