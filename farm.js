@@ -166,6 +166,7 @@ function selectedPlayer(){
         current.innerHTML = `${currentPlayer}. játékos`;
         charactersWrap.innerHTML = "";
         charactersWrap.style.display = "none";
+        diceImg.disabled = false;
     } 
 }
 
@@ -175,7 +176,6 @@ function createPlayerSeletionFor2(){
     createButtonsToSelectRass();
     //movePlayer(p1);
     //movePlayer(p2);
-    diceImg.disabled = false;
 }
 
 function createPlayerSeletionFor3(){
@@ -185,7 +185,6 @@ function createPlayerSeletionFor3(){
     //movePlayer(p1);
     //movePlayer(p2);
     //movePlayer(p3);
-    diceImg.disabled = false;
 }
 
 function createPlayerSeletionFor4(){
@@ -196,7 +195,6 @@ function createPlayerSeletionFor4(){
     //movePlayer(p2);
     //movePlayer(p3);
     //movePlayer(p4);
-    diceImg.disabled = false;
 }
 
 
