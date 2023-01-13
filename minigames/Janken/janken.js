@@ -23,7 +23,7 @@ function botPlays(playerPick) {
   console.log("----");
 
   let image = document.createElement("img");
-  image.src = botPick+".jpg";
+  image.src = "minigames/Janken/"+botPick+".jpg";
   field.append(image);
   if(playerPick != pick){
     checkResults(playerPick, pick);
