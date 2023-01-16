@@ -54,6 +54,8 @@
 }
 
 .player1 {
+  bottom: 0;
+  right: 0;
 }
 
 .player2 {
@@ -100,6 +102,10 @@
 
 .minigame0 {
   visibility: hidden;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 0;
 }
 
 .minigame {
@@ -111,5 +117,4 @@
   width: 500px;
   visibility: visible;
   z-index: 5;
-
 }

@@ -8,18 +8,23 @@ const btn4player = document.querySelector("#btn4player");
 const charactersWrap = document.querySelector(".characters-wrap");
 const winner = document.querySelector(".winner");
 
-//teszt
-const minigame = document.querySelector(".minigame0");
+// minigame
+const jankenGame = document.querySelector(".minigame0");
+const buttonRock = document.querySelector("#rock-button");
+const buttonPaper = document.querySelector("#paper-button");
+const buttonScissors = document.querySelector("#scissors-button");
+const acknowledge = document.querySelector("#ok");
 
 const current = document.querySelector("#current");
 const rassWrap = document.querySelector(".rass-wrap");
 
 let rowNumber = 10;
 let columnNumber = 12;
-currentPlayer = 1;
+let currentPlayer = 1;
+let currentPlayerForMinigame = 1;
 let amountOfPlayers;
 
-let surprisePositions = ["1","2","3","4","5","6", "18", "29", "46", "51"];
+let surprisePositions = ["6", "18", "29", "46", "51"];
 let track = [
   [0, 0, 0, 63, 62, 61, 60, 0, 0, 0, 0, 1],
   [0, 0, 0, 0, 0, 0, 59, 0, 5, 4, 3, 2],
@@ -60,7 +65,7 @@ function createGrid() {
       div.style.width = "100px";
       div.style.height = "100px";
 
-    //   console.log(track[row][column]);
+      //   console.log(track[row][column]);
 
       if (track[row][column] == 0) {
         div.className = "wall";
@@ -94,10 +99,22 @@ function mehetE(step, jatekos) {
 
     //teszt
     let pos = jatekos.nextPosition;
-    console.log(jatekos.nextPosition)
-    if (surprisePositions.includes(String((pos)))) {
-      console.log("props");
-      minigame.className = "minigame"
+    //console.log(jatekos.nextPosition)
+    // if (surprisePositions.includes(String(pos))) {
+    //   //console.log("props");
+    //   jankenGame.className = "minigame";
+    //   buttonRock.addEventListener("click", MiniGameWriter);
+    //   buttonPaper.addEventListener("click", MiniGameWriter);
+    //   buttonScissors.addEventListener("click", MiniGameWriter);
+    // }
+
+    switch (pos) {
+      case 6:
+        jankenGame.className = "minigame";
+        buttonRock.addEventListener("click", MiniGameWriter);
+        buttonPaper.addEventListener("click", MiniGameWriter);
+        buttonScissors.addEventListener("click", MiniGameWriter);
+        break;
     }
 
     movePlayer(jatekos);
@@ -111,6 +128,28 @@ function mehetE(step, jatekos) {
       let background = "url(" + `img/Dice/dice${step}.png` + ")";
       diceImg.style.backgroundImage = background;
     }
+  }
+}
+
+function MiniGameWriter() {
+  let gaymer = gameWinner;
+  // console.log(gaymer.miniGameWinner)
+  // console.log(gameWinner.miniGameWinner)
+  if (gaymer.miniGameWinner == "player") {
+    console.log(playerCollection[currentPlayerForMinigame-2]);
+    mehetE(5, playerCollection[currentPlayerForMinigame-2]);
+    if (currentPlayerForMinigame > amountOfPlayers){
+      currentPlayer = 1;
+    }
+    jankenGame.className = "minigame0";
+  }
+  if (gaymer.miniGameWinner == "bot") {
+    mehetE(5, playerCollection[currentPlayerForMinigame-2]);
+    console.log(playerCollection[currentPlayerForMinigame-2]);
+    if (currentPlayerForMinigame > amountOfPlayers){
+      currentPlayer = 1;
+    }
+    jankenGame.className = "minigame0";
   }
 }
 
@@ -129,7 +168,10 @@ function nextPlayer() {
     mehetE(step, p4);
   }
   currentPlayer++;
-  if (currentPlayer > amountOfPlayers) currentPlayer = 1;
+  currentPlayerForMinigame++;
+  if (currentPlayer > amountOfPlayers){
+    currentPlayer = 1;
+  }
   current.innerHTML = `${currentPlayer}. játékos`;
 }
 

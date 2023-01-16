@@ -7,9 +7,15 @@ const scissorsButton = document.querySelector("#scissors-button");
 let hands = [0, "rock", "paper", "scissors"]; //1 -> rock ; 2 -> paper; 3 -> scissors
 let winConditions = ["rockscissors", "paperrock", "scissorspaper"];
 
-
 //methods
 
+class Winner {
+  constructor(miniGameWinner) {
+    this.miniGameWinner = miniGameWinner;
+  }
+}
+
+let gameWinner = new Winner("none");
 
 function botPlays(playerPick) {
   field.innerHTML = "";
@@ -23,12 +29,11 @@ function botPlays(playerPick) {
   console.log("----");
 
   let image = document.createElement("img");
-  image.src = "minigames/Janken/"+botPick+".jpg";
+  image.src = "minigames/Janken/" + botPick + ".jpg";
   field.append(image);
-  if(playerPick != pick){
+  if (playerPick != pick) {
     checkResults(playerPick, pick);
-  }
-  else{
+  } else {
     result.innerHTML = "draw";
     rockButton.disabled = true;
     paperButton.disabled = true;
@@ -37,42 +42,43 @@ function botPlays(playerPick) {
   }
 }
 
-function checkResults(PP, BP){
+function checkResults(PP, BP) {
   console.log(PP);
   console.log(BP);
-  if (winConditions.includes(PP+BP) == true){
+  if (winConditions.includes(PP + BP) == true) {
     result.innerHTML = "player wins";
     rockButton.disabled = true;
     paperButton.disabled = true;
     scissorsButton.disabled = true;
+    gameWinner.miniGameWinner = "player";
   }
-  if(winConditions.includes(PP+BP) == false){
+  if (winConditions.includes(PP + BP) == false) {
     result.innerHTML = "bot wins";
     rockButton.disabled = true;
     paperButton.disabled = true;
     scissorsButton.disabled = true;
+    gameWinner.miniGameWinner = "bot";
   }
 }
 
-function continueGame(){
+function continueGame() {
   rockButton.disabled = false;
   paperButton.disabled = false;
   scissorsButton.disabled = false;
 }
 
-function playRock(){
+function playRock() {
   botPlays("rock");
 }
-function playPaper(){
+function playPaper() {
   botPlays("paper");
 }
-function playScissors(){
+function playScissors() {
   botPlays("scissors");
 }
 
 // main
 
-rockButton.addEventListener("click", playRock,);
+rockButton.addEventListener("click", playRock);
 paperButton.addEventListener("click", playPaper);
 scissorsButton.addEventListener("click", playScissors);
-
