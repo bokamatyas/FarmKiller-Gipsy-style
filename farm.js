@@ -129,6 +129,10 @@ function mehetE(step, jatekos) {
         mehetE(-8 + bonusStep, playerCollection[currentPlayer - 1]);
         acknowledgeNorina.addEventListener("click", AcknowledgeNorina);
         break;
+      case 46:
+        // Erik
+        
+        break;
     }
 
     movePlayer(jatekos);
