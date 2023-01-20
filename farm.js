@@ -23,6 +23,8 @@ let columnNumber = 12;
 let currentPlayer = 1;
 let amountOfPlayers;
 
+let minigamePlayer = 0;
+
 let surprisePositions = ["18", "29", "46", "51"];
 let track = [
   [0, 0, 0, 63, 62, 61, 60, 0, 0, 0, 0, 1],
@@ -129,19 +131,26 @@ function mehetE(step, jatekos) {
 
 function MiniGameWriter() {
   let gaymer = gameWinner;
-  // console.log(gaymer.miniGameWinner)
-  // console.log(gameWinner.miniGameWinner)
+  console.log(currentPlayer);
   if (gaymer.miniGameWinner == "player") {
-    console.log(`currentPlayer: ${playerCollection[currentPlayer - 1]}`);
-    mehetE(5, playerCollection[currentPlayer - 2]);
     acknowledge.disabled = false;
+    if (currentPlayer-2 < 0){
+      mehetE(-5, playerCollection[amountOfPlayers-1]);
+    }
+    else{
+      mehetE(-5, playerCollection[currentPlayer-2]);
+    }
     acknowledge.addEventListener("click", Acknowledge);
     acknowledge.addEventListener("click", continueGame);
   }
   if (gaymer.miniGameWinner == "bot") {
-    console.log(`currentPlayer: ${playerCollection[currentPlayer - 1]}`);
     acknowledge.disabled = false;
-    mehetE(-5, playerCollection[currentPlayer - 2]);
+    if (currentPlayer-2 < 0){
+      mehetE(-5, playerCollection[amountOfPlayers-1]);
+    }
+    else{
+      mehetE(-5, playerCollection[currentPlayer-2]);
+    }
     acknowledge.addEventListener("click", Acknowledge);
     acknowledge.addEventListener("click", continueGame);
   }
@@ -168,6 +177,7 @@ function nextPlayer() {
     mehetE(step, p4);
   }
   currentPlayer++;
+  minigamePlayer++;
   if (currentPlayer > amountOfPlayers) {
     currentPlayer = 1;
   }
