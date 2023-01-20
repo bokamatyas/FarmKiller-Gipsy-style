@@ -108,7 +108,7 @@
   width: 0;
 }
 
-.minigame {
+.janken {
   position: absolute;
   background-color: red;
   opacity: 0.5;

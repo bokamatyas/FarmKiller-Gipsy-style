@@ -28,7 +28,6 @@ let currentPlayer = 1;
 let amountOfPlayers;
 let currentRass = 0;
 
-let minigamePlayer = 0;
 
 let surprisePositions = ["18", "29", "46", "51"];
 let track = [
@@ -112,7 +111,7 @@ function mehetE(step, jatekos) {
       case 18:
         //Janken
         acknowledgeJanken.disabled = true;
-        jankenGame.className = "minigame";
+        jankenGame.className = "janken";
         diceImg.disabled = true;
         buttonRock.addEventListener("click", MiniGameWriter);
         buttonPaper.addEventListener("click", MiniGameWriter);
@@ -131,7 +130,7 @@ function mehetE(step, jatekos) {
         break;
       case 46:
         // Erik
-        
+
         break;
     }
 
@@ -223,7 +222,6 @@ function nextPlayer() {
     mehetE(step, p4);
   }
   currentPlayer++;
-  minigamePlayer++;
   if (currentPlayer > amountOfPlayers) {
     currentPlayer = 1;
   }
