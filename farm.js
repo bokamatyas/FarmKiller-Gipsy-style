@@ -8,12 +8,16 @@ const btn4player = document.querySelector("#btn4player");
 const charactersWrap = document.querySelector(".characters-wrap");
 const winner = document.querySelector(".winner");
 
-// minigame
-const jankenGame = document.querySelector(".minigame0");
+// minigame:Janken
+const jankenGame = document.querySelector("#janken");
 const buttonRock = document.querySelector("#rock-button");
 const buttonPaper = document.querySelector("#paper-button");
 const buttonScissors = document.querySelector("#scissors-button");
-const acknowledge = document.querySelector("#ok");
+const acknowledgeJanken = document.querySelector("#ok");
+
+//minigame:Norina
+const norinaGame = document.querySelector("#norina");
+const acknowledgeNorina = document.querySelector("#ok2");
 
 const current = document.querySelector("#current");
 const rassWrap = document.querySelector(".rass-wrap");
@@ -98,18 +102,26 @@ function mehetE(step, jatekos) {
   if (jatekos.nextPosition + step <= 63) {
     // jatekos.nextPosition += step;
     // teszthez
-    jatekos.nextPosition += 1;
+    jatekos.nextPosition += 14;
 
     let pos = jatekos.nextPosition;
 
     switch (pos) {
       case 18:
-        acknowledge.disabled = true;
+        //Janken
+        acknowledgeJanken.disabled = true;
         jankenGame.className = "minigame";
         diceImg.disabled = true;
         buttonRock.addEventListener("click", MiniGameWriter);
         buttonPaper.addEventListener("click", MiniGameWriter);
         buttonScissors.addEventListener("click", MiniGameWriter);
+        break;
+      case 29:
+        //Norina
+        diceImg.disabled = true;
+        norinaGame.className = "norina";
+        mehetE(-8, playerCollection[currentPlayer - 1]);
+        acknowledgeNorina.addEventListener("click", AcknowledgeNorina);
         break;
     }
 
@@ -133,31 +145,34 @@ function MiniGameWriter() {
   let gaymer = gameWinner;
   console.log(currentPlayer);
   if (gaymer.miniGameWinner == "player") {
-    acknowledge.disabled = false;
-    if (currentPlayer-2 < 0){
-      mehetE(-5, playerCollection[amountOfPlayers-1]);
+    acknowledgeJanken.disabled = false;
+    if (currentPlayer - 2 < 0) {
+      mehetE(-5, playerCollection[amountOfPlayers - 1]);
+    } else {
+      mehetE(-5, playerCollection[currentPlayer - 2]);
     }
-    else{
-      mehetE(-5, playerCollection[currentPlayer-2]);
-    }
-    acknowledge.addEventListener("click", Acknowledge);
-    acknowledge.addEventListener("click", continueGame);
+    acknowledgeJanken.addEventListener("click", AcknowledgeJanken);
+    acknowledgeJanken.addEventListener("click", continueGame);
   }
   if (gaymer.miniGameWinner == "bot") {
-    acknowledge.disabled = false;
-    if (currentPlayer-2 < 0){
-      mehetE(-5, playerCollection[amountOfPlayers-1]);
+    acknowledgeJanken.disabled = false;
+    if (currentPlayer - 2 < 0) {
+      mehetE(-5, playerCollection[amountOfPlayers - 1]);
+    } else {
+      mehetE(-5, playerCollection[currentPlayer - 2]);
     }
-    else{
-      mehetE(-5, playerCollection[currentPlayer-2]);
-    }
-    acknowledge.addEventListener("click", Acknowledge);
-    acknowledge.addEventListener("click", continueGame);
+    acknowledgeJanken.addEventListener("click", AcknowledgeJanken);
+    acknowledgeJanken.addEventListener("click", continueGame);
   }
 }
 
-function Acknowledge() {
-  jankenGame.className = "minigame0";
+function AcknowledgeJanken() {
+  jankenGame.className = "minigameOFF";
+  diceImg.disabled = false;
+}
+
+function AcknowledgeNorina() {
+  norinaGame.className = "minigameOFF";
   diceImg.disabled = false;
 }
 
