@@ -111,6 +111,7 @@
 .minigame {
   position: absolute;
   background-color: red;
+  opacity: 0.5;
   top: 750px;
   left: 535px;
   height: 500px;

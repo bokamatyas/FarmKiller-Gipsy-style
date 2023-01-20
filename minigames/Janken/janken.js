@@ -65,6 +65,7 @@ function continueGame() {
   rockButton.disabled = false;
   paperButton.disabled = false;
   scissorsButton.disabled = false;
+  gameWinner.miniGameWinner = "none";
 }
 
 function playRock() {

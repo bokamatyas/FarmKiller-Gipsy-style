@@ -21,10 +21,9 @@ const rassWrap = document.querySelector(".rass-wrap");
 let rowNumber = 10;
 let columnNumber = 12;
 let currentPlayer = 1;
-let currentPlayerForMinigame = 1;
 let amountOfPlayers;
 
-let surprisePositions = ["6", "18", "29", "46", "51"];
+let surprisePositions = ["18", "29", "46", "51"];
 let track = [
   [0, 0, 0, 63, 62, 61, 60, 0, 0, 0, 0, 1],
   [0, 0, 0, 0, 0, 0, 59, 0, 5, 4, 3, 2],
@@ -95,22 +94,17 @@ function movePlayer(player) {
 
 function mehetE(step, jatekos) {
   if (jatekos.nextPosition + step <= 63) {
-    jatekos.nextPosition += step;
+    // jatekos.nextPosition += step;
+    // teszthez
+    jatekos.nextPosition += 1;
 
-    //teszt
     let pos = jatekos.nextPosition;
-    //console.log(jatekos.nextPosition)
-    // if (surprisePositions.includes(String(pos))) {
-    //   //console.log("props");
-    //   jankenGame.className = "minigame";
-    //   buttonRock.addEventListener("click", MiniGameWriter);
-    //   buttonPaper.addEventListener("click", MiniGameWriter);
-    //   buttonScissors.addEventListener("click", MiniGameWriter);
-    // }
 
     switch (pos) {
-      case 6:
+      case 18:
+        acknowledge.disabled = true;
         jankenGame.className = "minigame";
+        diceImg.disabled = true;
         buttonRock.addEventListener("click", MiniGameWriter);
         buttonPaper.addEventListener("click", MiniGameWriter);
         buttonScissors.addEventListener("click", MiniGameWriter);
@@ -126,6 +120,8 @@ function mehetE(step, jatekos) {
       containsDice.innerHTML = "";
     } else {
       let background = "url(" + `img/Dice/dice${step}.png` + ")";
+      if (step < 0)
+        background = "url(" + `img/Dice/dice${String(step)[1]}.png` + ")";
       diceImg.style.backgroundImage = background;
     }
   }
@@ -136,25 +132,29 @@ function MiniGameWriter() {
   // console.log(gaymer.miniGameWinner)
   // console.log(gameWinner.miniGameWinner)
   if (gaymer.miniGameWinner == "player") {
-    console.log(playerCollection[currentPlayerForMinigame-2]);
-    mehetE(5, playerCollection[currentPlayerForMinigame-2]);
-    if (currentPlayerForMinigame > amountOfPlayers){
-      currentPlayer = 1;
-    }
-    jankenGame.className = "minigame0";
+    console.log(`currentPlayer: ${playerCollection[currentPlayer - 1]}`);
+    mehetE(5, playerCollection[currentPlayer - 2]);
+    acknowledge.disabled = false;
+    acknowledge.addEventListener("click", Acknowledge);
+    acknowledge.addEventListener("click", continueGame);
   }
   if (gaymer.miniGameWinner == "bot") {
-    mehetE(5, playerCollection[currentPlayerForMinigame-2]);
-    console.log(playerCollection[currentPlayerForMinigame-2]);
-    if (currentPlayerForMinigame > amountOfPlayers){
-      currentPlayer = 1;
-    }
-    jankenGame.className = "minigame0";
+    console.log(`currentPlayer: ${playerCollection[currentPlayer - 1]}`);
+    acknowledge.disabled = false;
+    mehetE(-5, playerCollection[currentPlayer - 2]);
+    acknowledge.addEventListener("click", Acknowledge);
+    acknowledge.addEventListener("click", continueGame);
   }
+}
+
+function Acknowledge() {
+  jankenGame.className = "minigame0";
+  diceImg.disabled = false;
 }
 
 function nextPlayer() {
   let step = Math.ceil(Math.random() * 6); // 1-6
+  current.innerHTML = `${currentPlayer}. játékos`;
   if (currentPlayer == 1) {
     mehetE(step, p1);
   }
@@ -168,8 +168,7 @@ function nextPlayer() {
     mehetE(step, p4);
   }
   currentPlayer++;
-  currentPlayerForMinigame++;
-  if (currentPlayer > amountOfPlayers){
+  if (currentPlayer > amountOfPlayers) {
     currentPlayer = 1;
   }
   current.innerHTML = `${currentPlayer}. játékos`;
