@@ -139,6 +139,9 @@ function mehetE(step, jatekos) {
       winner.append(image);
       containsDice.innerHTML = "";
     } else {
+      if (step < -6){
+        step = 1;
+      }
       let background = "url(" + `img/Dice/dice${step}.png` + ")";
       if (step < 0)
         background = "url(" + `img/Dice/dice${String(step)[1]}.png` + ")";
@@ -153,14 +156,10 @@ function MiniGameWriter() {
   if (gaymer.miniGameWinner == "player") {
     acknowledgeJanken.disabled = false;
     if (currentPlayer - 2 < 0) {
-      if (playerCollection[amountOfPlayers - 1].rass == "fekete") {
-        bonusStep = -2;
-      }
+      bonusStep = RacialDiscrimination(true);
       mehetE(5 + bonusStep, playerCollection[amountOfPlayers - 1]);
     } else {
-      if (playerCollection[currentPlayer - 2].rass == "fekete") {
-        bonusStep = -2;
-      }
+      bonusStep = RacialDiscrimination(false);
       mehetE(5 + bonusStep, playerCollection[currentPlayer - 2]);
     }
     acknowledgeJanken.addEventListener("click", AcknowledgeJanken);
@@ -169,14 +168,10 @@ function MiniGameWriter() {
   if (gaymer.miniGameWinner == "bot") {
     acknowledgeJanken.disabled = false;
     if (currentPlayer - 2 < 0) {
-      if (playerCollection[amountOfPlayers - 1].rass == "fekete") {
-        bonusStep = -2;
-      }
+      bonusStep = RacialDiscrimination(true);
       mehetE(-5 + bonusStep, playerCollection[amountOfPlayers - 1]);
     } else {
-      if (playerCollection[currentPlayer - 2].rass == "fekete") {
-        bonusStep = -2;
-      }
+      bonusStep = RacialDiscrimination(false);
       mehetE(-5 + bonusStep, playerCollection[currentPlayer - 2]);
     }
     acknowledgeJanken.addEventListener("click", AcknowledgeJanken);
@@ -192,6 +187,20 @@ function AcknowledgeJanken() {
 function AcknowledgeNorina() {
   norinaGame.className = "minigameOFF";
   diceImg.disabled = false;
+}
+
+function RacialDiscrimination(last) {
+  let bonusStep = 0;
+  if (last){
+    if (playerCollection[amountOfPlayers - 1].rass == "fekete") {
+      bonusStep = -2;
+    }
+  }else{
+    if (playerCollection[currentPlayer - 2].rass == "fekete") {
+      bonusStep = -2;
+    }
+  } 
+  return bonusStep;
 }
 
 function nextPlayer() {
