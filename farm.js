@@ -26,6 +26,7 @@ let rowNumber = 10;
 let columnNumber = 12;
 let currentPlayer = 1;
 let amountOfPlayers;
+let currentRass = 0;
 
 let minigamePlayer = 0;
 
@@ -44,18 +45,19 @@ let track = [
 ];
 
 class Player {
-  constructor(className, nextPosition, kepUrlBelseje) {
+  constructor(className, nextPosition, kepUrlBelseje, rass) {
     this.nextPosition = nextPosition;
     this.player = document.createElement("div");
     this.player.className = className;
     this.player.style.content = `url(${kepUrlBelseje})`;
+    this.rass = rass;
   }
 }
 
-let p1 = new Player("player1", 1, "img/feher/ember1.png");
-let p2 = new Player("player2", 1, "img/feher/ember2.png");
-let p3 = new Player("player3", 1, "img/feher/ember3.png");
-let p4 = new Player("player4", 1, "img/feher/ember4.png");
+let p1 = new Player("player1", 1, "img/feher/ember1.png", "none");
+let p2 = new Player("player2", 1, "img/feher/ember2.png", "none");
+let p3 = new Player("player3", 1, "img/feher/ember3.png", "none");
+let p4 = new Player("player4", 1, "img/feher/ember4.png", "none");
 
 let playerCollection = [p1, p2, p3, p4];
 
@@ -102,7 +104,7 @@ function mehetE(step, jatekos) {
   if (jatekos.nextPosition + step <= 63) {
     // jatekos.nextPosition += step;
     // teszthez
-    jatekos.nextPosition += 14;
+    jatekos.nextPosition += step;
 
     let pos = jatekos.nextPosition;
 
@@ -118,9 +120,13 @@ function mehetE(step, jatekos) {
         break;
       case 29:
         //Norina
+        let bonusStep = 0;
         diceImg.disabled = true;
         norinaGame.className = "norina";
-        mehetE(-8, playerCollection[currentPlayer - 1]);
+        if (playerCollection[currentPlayer - 1].rass == "fekete") {
+          bonusStep = -2;
+        }
+        mehetE(-8 + bonusStep, playerCollection[currentPlayer - 1]);
         acknowledgeNorina.addEventListener("click", AcknowledgeNorina);
         break;
     }
@@ -143,13 +149,19 @@ function mehetE(step, jatekos) {
 
 function MiniGameWriter() {
   let gaymer = gameWinner;
-  console.log(currentPlayer);
+  let bonusStep = 0;
   if (gaymer.miniGameWinner == "player") {
     acknowledgeJanken.disabled = false;
     if (currentPlayer - 2 < 0) {
-      mehetE(-5, playerCollection[amountOfPlayers - 1]);
+      if (playerCollection[amountOfPlayers - 1].rass == "fekete") {
+        bonusStep = -2;
+      }
+      mehetE(5 + bonusStep, playerCollection[amountOfPlayers - 1]);
     } else {
-      mehetE(-5, playerCollection[currentPlayer - 2]);
+      if (playerCollection[currentPlayer - 2].rass == "fekete") {
+        bonusStep = -2;
+      }
+      mehetE(5 + bonusStep, playerCollection[currentPlayer - 2]);
     }
     acknowledgeJanken.addEventListener("click", AcknowledgeJanken);
     acknowledgeJanken.addEventListener("click", continueGame);
@@ -157,9 +169,15 @@ function MiniGameWriter() {
   if (gaymer.miniGameWinner == "bot") {
     acknowledgeJanken.disabled = false;
     if (currentPlayer - 2 < 0) {
-      mehetE(-5, playerCollection[amountOfPlayers - 1]);
+      if (playerCollection[amountOfPlayers - 1].rass == "fekete") {
+        bonusStep = -2;
+      }
+      mehetE(-5 + bonusStep, playerCollection[amountOfPlayers - 1]);
     } else {
-      mehetE(-5, playerCollection[currentPlayer - 2]);
+      if (playerCollection[currentPlayer - 2].rass == "fekete") {
+        bonusStep = -2;
+      }
+      mehetE(-5 + bonusStep, playerCollection[currentPlayer - 2]);
     }
     acknowledgeJanken.addEventListener("click", AcknowledgeJanken);
     acknowledgeJanken.addEventListener("click", continueGame);
@@ -200,6 +218,7 @@ function nextPlayer() {
 }
 
 function mutatFeherKarakterek() {
+  currentRass = 0;
   charactersWrap.innerHTML = "";
   charactersWrap.style.marginBottom = "300px";
   for (let index = 1; index <= 4; index++) {
@@ -212,6 +231,7 @@ function mutatFeherKarakterek() {
 }
 
 function mutatFeketeKarakterek() {
+  currentRass = 1;
   charactersWrap.innerHTML = "";
   charactersWrap.style.marginBottom = "300px";
   for (let index = 1; index <= 4; index++) {
@@ -241,6 +261,11 @@ function createButtonsToSelectRass() {
 function selectedPlayer() {
   let image = "url(" + `${this.src}` + ")";
   playerCollection[currentPlayer - 1].player.style.content = image;
+  if (currentRass == 0) {
+    playerCollection[currentPlayer - 1].rass = "normál";
+  } else {
+    playerCollection[currentPlayer - 1].rass = "fekete";
+  }
   movePlayer(playerCollection[currentPlayer - 1]);
   currentPlayer++;
   current.innerHTML = `${currentPlayer}. játékos`;
