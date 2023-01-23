@@ -1,3 +1,13 @@
+//TODO Megcsinalni minigameben h gomb lenyomasa utan ugorjon
+//TODO Jatekos valasztas elott ne lehessen dobni
+//TODO Design tervezese
+//TODO Tictactoe megcsinalasa
+//TODO Animacio rakasa ugraskor A jatekosokra
+//TODO OLIVERT BESZOPATNI VMI LEHETETLEN DOLOGGAL MÁSODZSOR IS
+//! HA ZALAN BASZAKSZIK ALLKAPOCS
+//! CIGISZUNET FELTETLEN KIHAGYHATATLAN
+
+
 const gridContainer = document.querySelector(".grid-container");
 const containsDice = document.querySelector(".contains-dice");
 const containsButtons = document.querySelector(".contains-buttons");
@@ -19,6 +29,11 @@ const acknowledgeJanken = document.querySelector("#ok");
 const norinaGame = document.querySelector("#norina");
 const acknowledgeNorina = document.querySelector("#ok2");
 
+//minigame:Erik
+const erikGame = document.querySelector("#erik");
+const acknowledgeErik = document.querySelector("#ok3");
+
+
 const current = document.querySelector("#current");
 const rassWrap = document.querySelector(".rass-wrap");
 
@@ -30,6 +45,8 @@ let currentRass = 0;
 
 
 let surprisePositions = ["18", "29", "46", "51"];
+
+// palya matrixa
 let track = [
   [0, 0, 0, 63, 62, 61, 60, 0, 0, 0, 0, 1],
   [0, 0, 0, 0, 0, 0, 59, 0, 5, 4, 3, 2],
@@ -43,6 +60,7 @@ let track = [
   [39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28],
 ];
 
+// jatekos Class
 class Player {
   constructor(className, nextPosition, kepUrlBelseje, rass) {
     this.nextPosition = nextPosition;
@@ -53,6 +71,7 @@ class Player {
   }
 }
 
+// jatekosok
 let p1 = new Player("player1", 1, "img/feher/ember1.png", "none");
 let p2 = new Player("player2", 1, "img/feher/ember2.png", "none");
 let p3 = new Player("player3", 1, "img/feher/ember3.png", "none");
@@ -60,6 +79,7 @@ let p4 = new Player("player4", 1, "img/feher/ember4.png", "none");
 
 let playerCollection = [p1, p2, p3, p4];
 
+// palya letrehozasa
 function createGrid() {
   let div;
   let gridRow;
@@ -70,8 +90,6 @@ function createGrid() {
       div = document.createElement("div");
       div.style.width = "100px";
       div.style.height = "100px";
-
-      //   console.log(track[row][column]);
 
       if (track[row][column] == 0) {
         div.className = "wall";
@@ -91,6 +109,7 @@ function createGrid() {
   }
 }
 
+// jatekos mozgatasa
 function movePlayer(player) {
   let trackPositions = document.querySelectorAll("[data-id]");
   let position = Array.from(trackPositions).find(
@@ -99,15 +118,17 @@ function movePlayer(player) {
   position.append(player.player);
 }
 
+// eldonti ,hogy a kovetkezo mezo lepheto-e, a lepesunkkel megnyeruk-e a jatekot
+// es, hogy akovetkezo mezonk minigame-e
 function mehetE(step, jatekos) {
   if (jatekos.nextPosition + step <= 63) {
-    // jatekos.nextPosition += step;
-    // teszthez
     jatekos.nextPosition += step;
 
     let pos = jatekos.nextPosition;
 
     switch (pos) {
+
+      // ko papir ollo
       case 18:
         //Janken
         acknowledgeJanken.disabled = true;
@@ -117,6 +138,8 @@ function mehetE(step, jatekos) {
         buttonPaper.addEventListener("click", MiniGameWriter);
         buttonScissors.addEventListener("click", MiniGameWriter);
         break;
+
+      // norina megijeszt  
       case 29:
         //Norina
         let bonusStep = 0;
@@ -128,13 +151,34 @@ function mehetE(step, jatekos) {
         mehetE(-8 + bonusStep, playerCollection[currentPlayer - 1]);
         acknowledgeNorina.addEventListener("click", AcknowledgeNorina);
         break;
-      case 46:
-        // Erik
 
+      // erik a rasszista orais zsiraf/ember  
+      case 46:
+        let erikSteps = 0;
+        diceImg.disabled = true;
+        erikGame.className = "erik";
+        if (playerCollection[currentPlayer - 1].rass == "fekete") {
+          erikSteps = -10;
+          acknowledgeErik.innerHTML = "Már megint a bőrszínem miatt vernek meg...";
+        }
+        else if (playerCollection[currentPlayer - 1].rass == "normál") {
+          erikSteps = 5;
+          acknowledgeErik.innerHTML = "Felülök Erik a zsiráf hátára"
+        }
+        mehetE(erikSteps, playerCollection[currentPlayer - 1]);
+        acknowledgeErik.addEventListener("click", AcknowledgeErik);
+        break;
+
+        // tictactoe
+      case 55:
+        // TODO
         break;
     }
 
+    // itt lepteti a jatekost
     movePlayer(jatekos);
+
+    // gyozelem eseten leallitja a jatekot, nem engedi, hogy a dobokocka kifagyjon
     if (jatekos.nextPosition == 63) {
       winner.innerHTML = `${currentPlayer}. játékos a győztes`;
       image = document.createElement("img");
@@ -142,7 +186,7 @@ function mehetE(step, jatekos) {
       winner.append(image);
       containsDice.innerHTML = "";
     } else {
-      if (step < -6){
+      if (step < -6){ //? miert minusz 6
         step = 1;
       }
       let background = "url(" + `img/Dice/dice${step}.png` + ")";
@@ -153,6 +197,7 @@ function mehetE(step, jatekos) {
   }
 }
 
+// lefuttatja jankent
 function MiniGameWriter() {
   let gaymer = gameWinner;
   let bonusStep = 0;
@@ -182,16 +227,25 @@ function MiniGameWriter() {
   }
 }
 
+// kikapcsolja minigamet
 function AcknowledgeJanken() {
   jankenGame.className = "minigameOFF";
   diceImg.disabled = false;
 }
 
+// kikapcsolja minigamet
 function AcknowledgeNorina() {
   norinaGame.className = "minigameOFF";
   diceImg.disabled = false;
 }
 
+// kikapcsolja minigamet
+function AcknowledgeErik(){
+  erikGame.className = "minigameOFF";
+  diceImg.className = false;
+}
+
+// kis rasszizmus
 function RacialDiscrimination(last) {
   let bonusStep = 0;
   if (last){
@@ -206,6 +260,7 @@ function RacialDiscrimination(last) {
   return bonusStep;
 }
 
+// letrehozza a szamot amennyivel mozogjon egy jatekos, es meghivja a mozgatast
 function nextPlayer() {
   let step = Math.ceil(Math.random() * 6); // 1-6
   current.innerHTML = `${currentPlayer}. játékos`;
@@ -228,6 +283,7 @@ function nextPlayer() {
   current.innerHTML = `${currentPlayer}. játékos`;
 }
 
+// feher karaktereket mutatja
 function mutatFeherKarakterek() {
   currentRass = 0;
   charactersWrap.innerHTML = "";
@@ -241,6 +297,7 @@ function mutatFeherKarakterek() {
   }
 }
 
+// fekete karaktereket mutatja
 function mutatFeketeKarakterek() {
   currentRass = 1;
   charactersWrap.innerHTML = "";
@@ -254,6 +311,7 @@ function mutatFeketeKarakterek() {
   }
 }
 
+// rassz valaszto gombok letrehozasa
 function createButtonsToSelectRass() {
   charactersWrap.innerHTML = "";
   charactersWrap.style.display = "block";
@@ -269,6 +327,7 @@ function createButtonsToSelectRass() {
   btnFekete.addEventListener("click", mutatFeketeKarakterek);
 }
 
+// karaktereket kilehet valasztani kepukre kattintassal
 function selectedPlayer() {
   let image = "url(" + `${this.src}` + ")";
   playerCollection[currentPlayer - 1].player.style.content = image;
@@ -291,6 +350,7 @@ function selectedPlayer() {
   }
 }
 
+// 2 jatekosmodot valasztja ki
 function createPlayerSeletionFor2() {
   amountOfPlayers = 2;
   containsButtons.innerHTML = "";
@@ -299,6 +359,7 @@ function createPlayerSeletionFor2() {
   //movePlayer(p2);
 }
 
+// 3 jatekosmodot valasztja ki
 function createPlayerSeletionFor3() {
   amountOfPlayers = 3;
   containsButtons.innerHTML = "";
@@ -308,6 +369,7 @@ function createPlayerSeletionFor3() {
   //movePlayer(p3);
 }
 
+// 4 jatekosmodot valasztja ki
 function createPlayerSeletionFor4() {
   amountOfPlayers = 4;
   containsButtons.innerHTML = "";
@@ -318,8 +380,11 @@ function createPlayerSeletionFor4() {
   //movePlayer(p4);
 }
 
+// dobokocka
 diceImg.addEventListener("click", nextPlayer);
+//letrehoz
 createGrid();
+//jatekosmodok
 btn2player.addEventListener("click", createPlayerSeletionFor2);
 btn3player.addEventListener("click", createPlayerSeletionFor3);
 btn4player.addEventListener("click", createPlayerSeletionFor4);
