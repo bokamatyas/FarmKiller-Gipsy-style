@@ -7,7 +7,6 @@
 //! HA ZALAN BASZAKSZIK ALLKAPOCS
 //! CIGISZUNET FELTETLEN KIHAGYHATATLAN
 
-
 const gridContainer = document.querySelector(".grid-container");
 const containsDice = document.querySelector(".contains-dice");
 const containsButtons = document.querySelector(".contains-buttons");
@@ -33,7 +32,6 @@ const acknowledgeNorina = document.querySelector("#ok2");
 const erikGame = document.querySelector("#erik");
 const acknowledgeErik = document.querySelector("#ok3");
 
-
 const current = document.querySelector("#current");
 const rassWrap = document.querySelector(".rass-wrap");
 
@@ -42,7 +40,6 @@ let columnNumber = 12;
 let currentPlayer = 1;
 let amountOfPlayers;
 let currentRass = 0;
-
 
 let surprisePositions = ["18", "29", "46", "51"];
 
@@ -127,11 +124,15 @@ function mehetE(step, jatekos) {
     let pos = jatekos.nextPosition;
 
     switch (pos) {
-
       // ko papir ollo
       case 18:
         //Janken
+        buttonPaper.disabled = false;
+        buttonRock.disabled = false;
+        buttonScissors.disabled = false;
         acknowledgeJanken.disabled = true;
+        result.innerHTML = "";
+        field.innerHTML = "";
         jankenGame.className = "janken";
         diceImg.disabled = true;
         buttonRock.addEventListener("click", MiniGameWriter);
@@ -139,20 +140,26 @@ function mehetE(step, jatekos) {
         buttonScissors.addEventListener("click", MiniGameWriter);
         break;
 
-      // norina megijeszt  
+      // norina megijeszt
       case 29:
         //Norina
         let bonusStep = 0;
         diceImg.disabled = true;
-        norinaGame.className = "norina";
-        if (playerCollection[currentPlayer - 1].rass == "fekete") {
-          bonusStep = -2;
-        }
-        mehetE(-8 + bonusStep, playerCollection[currentPlayer - 1]);
-        acknowledgeNorina.addEventListener("click", AcknowledgeNorina);
+        norinaGame.className = "norina";    
+        acknowledgeNorina.onclick = function () {
+          norinaGame.className = "minigameOFF";
+          diceImg.disabled = false;
+          if (currentPlayer - 2 < 0) {
+            bonusStep = RacialDiscrimination(true);
+            mehetE(-8 + bonusStep, playerCollection[amountOfPlayers - 1]);
+          } else {
+            bonusStep = RacialDiscrimination(false);
+            mehetE(-8 + bonusStep, playerCollection[currentPlayer - 2]);
+          }
+        };
         break;
 
-      // erik a rasszista orais zsiraf/ember  
+      // erik a rasszista orais zsiraf/ember
       case 46:
         let erikSteps = 0;
         diceImg.disabled = true;
@@ -160,16 +167,22 @@ function mehetE(step, jatekos) {
         if (playerCollection[currentPlayer - 1].rass == "fekete") {
           erikSteps = -10;
           acknowledgeErik.innerHTML = "Már megint a bőrszínem miatt vernek meg...";
-        }
-        else if (playerCollection[currentPlayer - 1].rass == "normál") {
+        } else if (playerCollection[currentPlayer - 1].rass == "normál") {
           erikSteps = 5;
-          acknowledgeErik.innerHTML = "Felülök Erik a zsiráf hátára"
+          acknowledgeErik.innerHTML = "Felülök Erik a zsiráf hátára";
         }
-        mehetE(erikSteps, playerCollection[currentPlayer - 1]);
-        acknowledgeErik.addEventListener("click", AcknowledgeErik);
+        acknowledgeErik.onclick = function(){
+          if (currentPlayer - 2 < 0) {
+            mehetE(erikSteps, playerCollection[amountOfPlayers - 1]);
+          } else {
+            mehetE(erikSteps, playerCollection[currentPlayer - 2]);
+          }
+          erikGame.className = "minigameOFF";
+          diceImg.disabled = false;
+        }
         break;
 
-        // tictactoe
+      // tictactoe
       case 55:
         // TODO
         break;
@@ -186,7 +199,8 @@ function mehetE(step, jatekos) {
       winner.append(image);
       containsDice.innerHTML = "";
     } else {
-      if (step < -6){ //? miert minusz 6
+      if (step < -6) {
+        //? miert minusz 6
         step = 1;
       }
       let background = "url(" + `img/Dice/dice${step}.png` + ")";
@@ -203,66 +217,53 @@ function MiniGameWriter() {
   let bonusStep = 0;
   if (gaymer.miniGameWinner == "player") {
     acknowledgeJanken.disabled = false;
-    if (currentPlayer - 2 < 0) {
-      bonusStep = RacialDiscrimination(true);
-      mehetE(5 + bonusStep, playerCollection[amountOfPlayers - 1]);
-    } else {
-      bonusStep = RacialDiscrimination(false);
-      mehetE(5 + bonusStep, playerCollection[currentPlayer - 2]);
-    }
-    acknowledgeJanken.addEventListener("click", AcknowledgeJanken);
-    acknowledgeJanken.addEventListener("click", continueGame);
+    acknowledgeJanken.onclick = function () {
+      if (currentPlayer - 2 < 0) {
+        bonusStep = RacialDiscrimination(true);
+        mehetE(5 + bonusStep, playerCollection[amountOfPlayers - 1]);
+      } else {
+        bonusStep = RacialDiscrimination(false);
+        mehetE(5 + bonusStep, playerCollection[currentPlayer - 2]);
+      }
+      jankenGame.className = "minigameOFF";
+      diceImg.disabled = false;
+    };
   }
   if (gaymer.miniGameWinner == "bot") {
     acknowledgeJanken.disabled = false;
-    if (currentPlayer - 2 < 0) {
-      bonusStep = RacialDiscrimination(true);
-      mehetE(-5 + bonusStep, playerCollection[amountOfPlayers - 1]);
-    } else {
-      bonusStep = RacialDiscrimination(false);
-      mehetE(-5 + bonusStep, playerCollection[currentPlayer - 2]);
-    }
-    acknowledgeJanken.addEventListener("click", AcknowledgeJanken);
-    acknowledgeJanken.addEventListener("click", continueGame);
+    acknowledgeJanken.onclick = function () {
+      if (currentPlayer - 2 < 0) {
+        bonusStep = RacialDiscrimination(true);
+        mehetE(-5 + bonusStep, playerCollection[amountOfPlayers - 1]);
+      } else {
+        bonusStep = RacialDiscrimination(false);
+        mehetE(-5 + bonusStep, playerCollection[currentPlayer - 2]);
+      }
+      jankenGame.className = "minigameOFF";
+      diceImg.disabled = false;
+    };
   }
-}
-
-// kikapcsolja minigamet
-function AcknowledgeJanken() {
-  jankenGame.className = "minigameOFF";
-  diceImg.disabled = false;
-}
-
-// kikapcsolja minigamet
-function AcknowledgeNorina() {
-  norinaGame.className = "minigameOFF";
-  diceImg.disabled = false;
-}
-
-// kikapcsolja minigamet
-function AcknowledgeErik(){
-  erikGame.className = "minigameOFF";
-  diceImg.className = false;
 }
 
 // kis rasszizmus
 function RacialDiscrimination(last) {
   let bonusStep = 0;
-  if (last){
+  if (last) {
     if (playerCollection[amountOfPlayers - 1].rass == "fekete") {
       bonusStep = -2;
     }
-  }else{
+  } else {
     if (playerCollection[currentPlayer - 2].rass == "fekete") {
       bonusStep = -2;
     }
-  } 
+  }
   return bonusStep;
 }
 
 // letrehozza a szamot amennyivel mozogjon egy jatekos, es meghivja a mozgatast
 function nextPlayer() {
   let step = Math.ceil(Math.random() * 6); // 1-6
+  //step = 23;
   current.innerHTML = `${currentPlayer}. játékos`;
   if (currentPlayer == 1) {
     mehetE(step, p1);
