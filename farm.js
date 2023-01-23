@@ -1,5 +1,5 @@
-//TODO Megcsinalni minigameben h gomb lenyomasa utan ugorjon
-//TODO Jatekos valasztas elott ne lehessen dobni
+//DONE Megcsinalni minigameben h gomb lenyomasa utan ugorjon
+//??? Jatekos valasztas elott ne lehessen dobni
 //TODO Design tervezese
 //TODO Tictactoe megcsinalasa
 //TODO Animacio rakasa ugraskor A jatekosokra
