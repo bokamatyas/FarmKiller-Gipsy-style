@@ -1,16 +1,33 @@
 * {
+  font-family: 'Solitreo', cursive;
+  padding: 0;
+}
+
+body {
+  background-color: #7cca4bba;
+}
+
+#contains-logo {
   margin-left: auto;
   margin-right: auto;
-  padding: 0;
+  width: 600px;
+  height: 300px;
+  content: url(./img/logo.png);
+}
+
+#diceWrap{
+  width: 210px;
+  height: 210px;
 }
 
 .dice-img {
   background-image: url(/img/Dice/dice1.png);
-  background-size: contain;
-  background-size: 400px;
-  width: 400px;
-  height: 400px;
-  border: 1px solid transparent;
+  background-size: cover;
+  background-size: 200px;
+  width: 200px;
+  height: 200px;
+  border: 3px solid transparent;
+  background-color: transparent;
 }
 
 .dice-img:disabled {
@@ -18,13 +35,23 @@
 }
 
 .dice-img:hover {
-  border: 1px solid black;
+  border: 3px solid rgb(13, 165, 15);
+  animation: diceHover 0.5s ease 0s infinite alternate none;
 }
 
-.characters-wrap {
-  /* margin-bottom: 300px; */
-  display: none;
+.dice-img:active{
+  border: 3px solid rgb(234, 44, 10);
 }
+
+@keyframes diceHover {
+  from {width: 200px; height: 200px; background-size: 200px;}
+  to {width: 210px; height: 210px; background-size: 210px;}
+}
+
+/* .characters-wrap {
+  /* margin-bottom: 300px; */
+  /* display: none; */
+/*}*/
 
 .grid-container {
   width: 1200px;
@@ -75,8 +102,9 @@
 
 .feherekGomb,
 .feketekGomb {
-  width: 200px;
-  height: 100px;
+  width: 300px;
+  height: 150px;
+  font-size: 50px;
 }
 
 .characterImage {
@@ -90,6 +118,7 @@
 #btn4player {
   height: 100px;
   width: 300px;
+  font-size: 50px;
 }
 
 /* teszt */
@@ -114,8 +143,8 @@
   opacity: 0.5;
   top: 750px;
   left: 535px;
-  height: 500px;
-  width: 500px;
+  height: 550px;
+  width: 525px;
   visibility: visible;
   z-index: 5;
 }
@@ -123,8 +152,8 @@
 #norina, #erik{
   top: 750px;
   left: 535px;
-  width: 700px;
-  height: 600px;
+  width: 1000px;
+  height: 800px;
   z-index: 5;
   position: absolute;
   visibility: visible;
@@ -144,4 +173,39 @@
   display: block;
   height: 50px;
   font-size: 1.5em;
+}
+
+#rock-button, #ok, #paper-button, #scissors-button{
+  height: 50px;
+  width: 100px;
+  font-size: 30px;
+}
+
+.left{
+  float: left;
+}
+
+#side{
+  padding: 40px;
+  margin: 20px;
+  background-image: ;
+  overflow: hidden;
+  border: 10px ridge rgb(230, 13, 38);
+}
+
+#current{
+  border: 5px groove rgb(12, 179, 194);
+  padding: 5px;
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-size: 1.5em;
+}
+
+#CurrentLabel{
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: bold;
+  margin: 0;
+  margin-top: 50px;
 }

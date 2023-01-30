@@ -6,35 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FarmKiller</title>
     <link rel="stylesheet" href="farm.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Solitreo&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-     <!-- dobokocka kep -->
-    <div class="contains-dice">
-      <button class="dice-img" disabled="true"></button>
+    <div id="contains-logo"></div>
+
+    <div id="side" class="left">
+      <!-- dobokocka kep -->
+      <div id="diceWrap">
+        <div class="contains-dice">
+          <button class="dice-img" disabled="true"></button>
+        </div>
+      </div>
+      <hr>
+      <!-- játékosszám -->
+      <p id="CurrentLabel">Lép:</p>
+      <div id="current">1. játékos</div>
     </div>
 
-    <!-- // karakterszam valasztasa -->
-    <div id="current">1. játékos</div>
-    <div class="contains-buttons">
-      <button id="btn2player" class="btn">2 játékos</button>
-      <button id="btn3player" class="btn">3 játékos</button>
-      <button id="btn4player" class="btn">4 játékos</button>
-    </div>
-    
-    <!-- // karakter rasszanak valasztasa -->
-    <div class="rass-wrap"></div>
-
-    <!-- // karakter kinezetenek kivalasztasa -->
-    <div class="characters-wrap"></div>
-    
-    <!-- // a palya es minden game -->
-    <div class="grid-container">
+    <!-- a palya es minden game -->
+    <div class="grid-container left">
       
-      <!-- // alappalya kepe -->
+      <!--  karakterszam valasztasa -->
+      
+      <div class="contains-buttons">
+        <button id="btn2player" class="btn">2 játékos</button>
+        <button id="btn3player" class="btn">3 játékos</button>
+        <button id="btn4player" class="btn">4 játékos</button>
+      </div>
+
+      <!-- karakter rasszanak valasztasa -->
+      <div class="rass-wrap"></div>
+
+      <!-- karakter kinezetenek kivalasztasa -->
+      <div class="characters-wrap"></div>
+
+      <!-- alappalya kepe -->
       <div class="img"></div>
 
-      <!-- // ko papir ollo minigame -->
+      <!-- ko papir ollo minigame -->
       <div id="janken" class="minigameOFF">
         <div class="field"></div>
         <div class="result"></div>
@@ -43,28 +62,31 @@
         <button id="scissors-button">scissors</button>
         <button id="ok">OK</button>
       </div>
-   
-      <!-- // norina surprise -->
+
+      <!-- norina surprise -->
       <div id="norina" class="minigameOFF">
         <img id="norinaimg" src="minigames/Noryna.png" alt="norina" />
-        <button id="ok2">Megnyalom a virgácsot <span class="material-symbols-outlined">
+        <button id="ok2">
+          Megnyalom a virgácsot
+          <span class="material-symbols-outlined">
             sentiment_very_satisfied
-            </span></button>
+          </span>
+        </button>
       </div>
-      
-      <!-- // erik surprise -->
+
+      <!-- erik surprise -->
       <div id="erik" class="minigameOFF">
         <img id="erikimg" src="minigames/erik.jpg" alt="erikABuvosOrias" />
-        <button id="ok3"><span class="material-symbols-outlined">
+        <button id="ok3">
+          <span class="material-symbols-outlined">
             sentiment_very_satisfied
-            </span></button>
+          </span>
+        </button>
 
-      <!-- // tictactoe minigame -->
-
-
+        <!-- tictactoe minigame -->
       </div>
     </div>
-    <!-- // gyoztes jelzese -->
+    <!-- gyoztes jelzese -->
     <p class="winner"></p>
     <script src="farm.js"></script>
     <script src="minigames/Janken/janken.js"></script>

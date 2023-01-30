@@ -1,6 +1,6 @@
 //DONE Megcsinalni minigameben h gomb lenyomasa utan ugorjon
 //??? Jatekos valasztas elott ne lehessen dobni
-//TODO Design tervezese
+//munkaban Design tervezese
 //TODO Tictactoe megcsinalasa
 //TODO Animacio rakasa ugraskor A jatekosokra
 //TODO OLIVERT BESZOPATNI VMI LEHETETLEN DOLOGGAL MÁSODZSOR IS
@@ -119,7 +119,7 @@ function movePlayer(player) {
 // es, hogy akovetkezo mezonk minigame-e
 function mehetE(step, jatekos) {
   if (jatekos.nextPosition + step <= 63) {
-    jatekos.nextPosition += step;
+    jatekos.nextPosition += step; //! lehet ez miatt nem mukodott az egyesevel leptetes mert alapbol odaleptette nem tudott mar lefutni
 
     let pos = jatekos.nextPosition;
 
@@ -189,6 +189,7 @@ function mehetE(step, jatekos) {
     }
 
     // itt lepteti a jatekost
+
     movePlayer(jatekos);
 
     // gyozelem eseten leallitja a jatekot, nem engedi, hogy a dobokocka kifagyjon
