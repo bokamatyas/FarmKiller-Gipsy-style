@@ -119,7 +119,7 @@ function movePlayer(player) {
 // es, hogy akovetkezo mezonk minigame-e
 function mehetE(step, jatekos) {
   if (jatekos.nextPosition + step <= 63) {
-    jatekos.nextPosition += step; //! lehet ez miatt nem mukodott az egyesevel leptetes mert alapbol odaleptette nem tudott mar lefutni
+    jatekos.nextPosition += 14; //! lehet ez miatt nem mukodott az egyesevel leptetes mert alapbol odaleptette nem tudott mar lefutni
 
     let pos = jatekos.nextPosition;
 
