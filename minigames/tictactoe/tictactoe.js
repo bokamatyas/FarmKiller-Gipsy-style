@@ -33,15 +33,9 @@ function createGrid() {
                 flag = 1;
                 this.classList.add("full");
                 checkResults();
+                botPlaces();
             }
-            else{
-                this.innerHTML = "O";
-                flag = 0;
-                this.classList.add("full");
-                checkResults();
-            }
-        }
-        
+        }      
         });
   
         gridRow.append(div);
@@ -50,30 +44,61 @@ function createGrid() {
     }
   }
 
+  function botPlaces(){
+    let cells = [];
+    let place = Math.ceil(Math.random() * 9);
+
+
+    for (let i = 1; i <= 9; i++) {
+        cells.push(document.querySelector(`#c${i}`));
+    }
+
+    let cell;
+
+    cells.forEach(element => {
+        if(element.id == `c${place}`){
+            cell = element;
+        }
+    });
+
+    if(cell.classList.contains("full") == false){
+        cell.innerHTML = "O";
+        flag = 0;
+        cell.classList.add("full");
+        checkResults();
+    }  
+    else{
+        botPlaces();
+    } 
+}
+
 function checkResults(){
+    let overloadChecker = document.querySelectorAll(".full");
+    if(overloadChecker.length == 9){
+        alert("draw");
+    }
+
     let resultChecker = ["E","E","E","E","E","E","E","E","E",];
     let resultONumber = [];
     let resultXNumber = [];
-    let cell = [];
+    let cells = [];
 
     for (let i = 1; i <= 9; i++) {
-        cell.push(document.querySelector(`#c${i}`));
+        cells.push(document.querySelector(`#c${i}`));
     }
-    cell.forEach(element => {
+    cells.forEach(element => {
         if(element.innerHTML == "O"){
-            resultChecker[cell.indexOf(element)] = "O";
-            resultONumber.push(cell.indexOf(element)+1);
+            resultChecker[cells.indexOf(element)] = "O";
+            resultONumber.push(cells.indexOf(element)+1);
         }
         if(element.innerHTML == "X"){
-            resultChecker[cell.indexOf(element)] = "X";
-            resultXNumber.push(cell.indexOf(element)+1);
+            resultChecker[cells.indexOf(element)] = "X";
+            resultXNumber.push(cells.indexOf(element)+1);
         }  
-    });        
+    });    
+
     resultONumber.sort();
     resultXNumber.sort();
-
-    console.log(resultONumber)
-    console.log(resultXNumber)
 
     let resultO = "_";
     let resultX = "_";
@@ -84,8 +109,6 @@ function checkResults(){
     resultXNumber.forEach(element => {
         resultX += `${element}`;
     });
-    console.log(resultO);
-    console.log(resultX);
     
     winConditions.forEach(condition => {
         if (resultO.includes(condition)){
@@ -95,11 +118,6 @@ function checkResults(){
             callWinner("X");
         }
     });
-
-
-    console.log(resultChecker);
-    console.log(resultO);
-    console.log(resultX);
 }
 
 function callWinner(winner){
