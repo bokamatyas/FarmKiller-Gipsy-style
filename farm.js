@@ -118,12 +118,11 @@ function movePlayer(player, skin) {
   player.player.classList.remove("playerWarp");
   player.player.classList.add("playerArrive");
   position.append(player.player);
-  console.log(skin);
   setTimeout(function() {
     player.player.style.content = skin;
     diceImg.disabled = false;
     diceOFF.style.visibility = "hidden";
-    }, 1100);
+    }, 1500);
 }
 
 // eldonti ,hogy a kovetkezo mezo lepheto-e, a lepesunkkel megnyeruk-e a jatekot
@@ -136,9 +135,7 @@ function mehetE(step, jatekos) {
     jatekos.player.classList.remove("playerArrive");
     jatekos.player.classList.add("playerWarp");    
     let skin = jatekos.player.style.content;
-    console.log(skin);
     jatekos.player.style.content = `url(img/wormhole.png)`;
-    console.log(skin);
 
     let pos = jatekos.nextPosition;
 
