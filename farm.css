@@ -21,6 +21,7 @@ body {
 }
 
 .dice-img {
+  position: absolute;
   background-image: url(/img/Dice/dice1.png);
   background-size: cover;
   background-size: 200px;
@@ -28,10 +29,6 @@ body {
   height: 200px;
   border: 3px solid transparent;
   background-color: transparent;
-}
-
-.dice-img:disabled {
-  background-color: lightgray;
 }
 
 .dice-img:hover {
@@ -42,11 +39,32 @@ body {
 
 .dice-img:active{
   border: 3px solid rgb(234, 44, 10);
+  animation: none;
 }
 
 @keyframes diceHover {
   from {width: 200px; height: 200px; background-size: 200px;}
   to {width: 210px; height: 210px; background-size: 210px;}
+}
+
+.OFF{
+  background-image: url(img/Dice/OFF.png);
+  background-size: 200px;
+  width: 200px;
+  height: 200px;
+  top: 10px;
+  left: 5px;
+  background-repeat: no-repeat;
+  z-index: 1;
+  position: relative;
+}
+
+.OFF:hover{
+  animation: diceHover 0.5s ease 0s infinite alternate none;
+}
+
+.OFF:active{
+  animation: none;
 }
 
 /* .characters-wrap {

@@ -11,6 +11,7 @@ const gridContainer = document.querySelector(".grid-container");
 const containsDice = document.querySelector(".contains-dice");
 const containsButtons = document.querySelector(".contains-buttons");
 const diceImg = document.querySelector(".dice-img");
+const diceOFF = document.querySelector(".OFF");
 const btn2player = document.querySelector("#btn2player");
 const btn3player = document.querySelector("#btn3player");
 const btn4player = document.querySelector("#btn4player");
@@ -118,7 +119,11 @@ function movePlayer(player, skin) {
   player.player.classList.add("playerArrive");
   position.append(player.player);
   console.log(skin);
-  setTimeout(function() {player.player.style.content = skin;}, 1100);
+  setTimeout(function() {
+    player.player.style.content = skin;
+    diceImg.disabled = false;
+    diceOFF.style.visibility = "hidden";
+    }, 1100);
 }
 
 // eldonti ,hogy a kovetkezo mezo lepheto-e, a lepesunkkel megnyeruk-e a jatekot
@@ -149,6 +154,7 @@ function mehetE(step, jatekos) {
         field.innerHTML = "";
         jankenGame.className = "janken";
         diceImg.disabled = true;
+        diceOFF.style.visibility = "visible";
         buttonRock.addEventListener("click", MiniGameWriter);
         buttonPaper.addEventListener("click", MiniGameWriter);
         buttonScissors.addEventListener("click", MiniGameWriter);
@@ -159,10 +165,12 @@ function mehetE(step, jatekos) {
         //Norina
         let bonusStep = 0;
         diceImg.disabled = true;
+        diceOFF.style.visibility = "visible";
         norinaGame.className = "norina";    
         acknowledgeNorina.onclick = function () {
           norinaGame.className = "minigameOFF";
           diceImg.disabled = false;
+          diceOFF.style.visibility = "hidden";
           if (currentPlayer - 2 < 0) {
             bonusStep = RacialDiscrimination(true);
             mehetE(-8 + bonusStep, playerCollection[amountOfPlayers - 1]);
@@ -177,6 +185,7 @@ function mehetE(step, jatekos) {
       case 46:
         let erikSteps = 0;
         diceImg.disabled = true;
+        diceOFF.style.visibility = "visible";
         erikGame.className = "erik";
         if (playerCollection[currentPlayer - 1].rass == "fekete") {
           erikSteps = -10;
@@ -193,6 +202,7 @@ function mehetE(step, jatekos) {
           }
           erikGame.className = "minigameOFF";
           diceImg.disabled = false;
+          diceOFF.style.visibility = "hidden";
         }
         break;
 
@@ -242,6 +252,7 @@ function MiniGameWriter() {
       }
       jankenGame.className = "minigameOFF";
       diceImg.disabled = false;
+      diceOFF.style.visibility = "hidden";
     };
   }
   if (gaymer.miniGameWinner == "bot") {
@@ -256,6 +267,7 @@ function MiniGameWriter() {
       }
       jankenGame.className = "minigameOFF";
       diceImg.disabled = false;
+      diceOFF.style.visibility = "hidden";
     };
   }
 }
@@ -277,6 +289,8 @@ function RacialDiscrimination(last) {
 
 // letrehozza a szamot amennyivel mozogjon egy jatekos, es meghivja a mozgatast
 function nextPlayer() {
+  diceImg.disabled = true;
+  diceOFF.style.visibility = "visible";
   let step = Math.ceil(Math.random() * 6); // 1-6
   //step = 23;
   current.innerHTML = `${currentPlayer}. játékos`;
@@ -362,6 +376,7 @@ function selectedPlayer() {
     charactersWrap.innerHTML = "";
     charactersWrap.style.display = "none";
     diceImg.disabled = false;
+    diceOFF.style.visibility = "hidden";
     diceImg.style.backgroundColor = "none";
     rassWrap.innerHTML = "";
   }
