@@ -76,6 +76,7 @@ let p4 = new Player("player4", 1, "img/feher/ember4.png", "none");
 
 let playerCollection = [p1, p2, p3, p4];
 
+
 // palya letrehozasa
 function createGrid() {
   let div;
@@ -107,19 +108,32 @@ function createGrid() {
 }
 
 // jatekos mozgatasa
-function movePlayer(player) {
+function movePlayer(player, skin) {
   let trackPositions = document.querySelectorAll("[data-id]");
   let position = Array.from(trackPositions).find(
     (x) => x.dataset.id == player.nextPosition
   );
+
+  player.player.classList.remove("playerWarp");
+  player.player.classList.add("playerArrive");
   position.append(player.player);
+  console.log(skin);
+  setTimeout(function() {player.player.style.content = skin;}, 1100);
 }
 
 // eldonti ,hogy a kovetkezo mezo lepheto-e, a lepesunkkel megnyeruk-e a jatekot
 // es, hogy akovetkezo mezonk minigame-e
 function mehetE(step, jatekos) {
   if (jatekos.nextPosition + step <= 63) {
-    jatekos.nextPosition += 14; //! lehet ez miatt nem mukodott az egyesevel leptetes mert alapbol odaleptette nem tudott mar lefutni
+    jatekos.nextPosition += step; //! lehet ez miatt nem mukodott az egyesevel leptetes mert alapbol odaleptette nem tudott mar lefutni
+
+    // Teleport animáció
+    jatekos.player.classList.remove("playerArrive");
+    jatekos.player.classList.add("playerWarp");    
+    let skin = jatekos.player.style.content;
+    console.log(skin);
+    jatekos.player.style.content = `url(img/wormhole.png)`;
+    console.log(skin);
 
     let pos = jatekos.nextPosition;
 
@@ -189,8 +203,8 @@ function mehetE(step, jatekos) {
     }
 
     // itt lepteti a jatekost
-
-    movePlayer(jatekos);
+    // delay az animáció miatt
+    setTimeout(function() {movePlayer(jatekos, skin);}, 1000); 
 
     // gyozelem eseten leallitja a jatekot, nem engedi, hogy a dobokocka kifagyjon
     if (jatekos.nextPosition == 63) {
@@ -332,13 +346,14 @@ function createButtonsToSelectRass() {
 // karaktereket kilehet valasztani kepukre kattintassal
 function selectedPlayer() {
   let image = "url(" + `${this.src}` + ")";
+  currentSkin = this.src;
   playerCollection[currentPlayer - 1].player.style.content = image;
   if (currentRass == 0) {
     playerCollection[currentPlayer - 1].rass = "normál";
   } else {
     playerCollection[currentPlayer - 1].rass = "fekete";
   }
-  movePlayer(playerCollection[currentPlayer - 1]);
+  movePlayer(playerCollection[currentPlayer - 1], this.src);
   currentPlayer++;
   current.innerHTML = `${currentPlayer}. játékos`;
   if (currentPlayer > amountOfPlayers) {
