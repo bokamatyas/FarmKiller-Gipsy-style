@@ -75,16 +75,17 @@ function checkResults(){
     console.log(resultONumber)
     console.log(resultXNumber)
 
-    let resultO;
-    let resultX;
+    let resultO = "_";
+    let resultX = "_";
+
     resultONumber.forEach(element => {
         resultO += `${element}`;
     });
     resultXNumber.forEach(element => {
         resultX += `${element}`;
     });
-    console.log(resultO)
-    console.log(resultX)
+    console.log(resultO);
+    console.log(resultX);
     
     winConditions.forEach(condition => {
         if (resultO.includes(condition)){
