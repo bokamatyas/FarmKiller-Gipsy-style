@@ -1,0 +1,13 @@
+.cell {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid black;
+    text-align: center;
+  }
+.grid-row {
+    display: flex;
+}
+
+.full{
+    background-color: gray;
+}
