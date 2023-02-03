@@ -3,7 +3,7 @@ const grid = document.querySelector("#grid");
 const rowNumber = 3;
 const columnNumber = 3;
 let flag = 0;
-let winner = "";
+let hasWinner = false;
 
 const winConditions = ["123", "147", "159", "258", "369", "357", "456", "789"];
 
@@ -31,8 +31,10 @@ function createGrid() {
             flag = 1;
             this.classList.add("full");
             checkResults();
-            botPlaces();
-            checkResults();
+            if (flag == 1){
+              botPlaces();
+              checkResults();
+            }          
           }
         }
       });
@@ -66,16 +68,11 @@ function botPlaces() {
     checkResults();
   } else {
     botPlaces();
-    checkResults();
+    // checkResults();
   }
 }
 
 function checkResults() {
-  let overloadChecker = document.querySelectorAll(".full");
-  if (overloadChecker.length == 9) {
-    alert("draw");
-  }
-
   let resultChecker = ["E", "E", "E", "E", "E", "E", "E", "E", "E"];
   let resultONumber = [];
   let resultXNumber = [];
@@ -116,6 +113,9 @@ function checkResults() {
     if (resultO.includes(condition[0])) {
       if (resultO.includes(condition[1])) {
         if (resultO.includes(condition[2])) {
+
+          cellPainter(condition[0], condition[1], condition[2])
+          hasWinner = true;
           callWinner("O");
         }
       }
@@ -123,15 +123,33 @@ function checkResults() {
     if (resultX.includes(condition[0])) {
       if (resultX.includes(condition[1])) {
         if (resultX.includes(condition[2])) {
+
+          cellPainter(condition[0], condition[1], condition[2])
+          hasWinner = true;
           callWinner("X");
         }
       }
     }
   });
+  let overloadChecker = document.querySelectorAll(".full");
+  if (overloadChecker.length == 9 && !hasWinner) {
+    alert("draw");
+  }
+  return null;
 }
 
 function callWinner(winner) {
+  flag = 2;
   alert(`${winner} won!`);
+}
+
+function cellPainter(c1,c2,c3){
+  let cell1 = document.querySelector(`#c${c1}`)
+          cell1.style.backgroundColor = "yellow";
+          let cell2 = document.querySelector(`#c${c2}`)
+          cell2.style.backgroundColor = "yellow";
+          let cell3 = document.querySelector(`#c${c3}`)
+          cell3.style.backgroundColor = "yellow";
 }
 
 createGrid();
