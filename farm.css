@@ -281,7 +281,7 @@ body {
   margin-right: auto;
   display: block;
   height: 50px;
-  width: 50px;
+  min-width: 50px;
   font-size: 1.5em;
   border-radius: 20%;
   background-color: lightseagreen;

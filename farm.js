@@ -210,6 +210,7 @@ function mehetE(step, jatekos) {
 
       // tictactoe
       case 51:
+        let bonusStepTTT = 0;
         acknowledgeTTT.disabled = true;
         let gaymer = ttt_gameWinner;
         diceImg.disabled = true;
@@ -224,11 +225,11 @@ function mehetE(step, jatekos) {
           diceImg.disabled = false;
           diceOFF.style.visibility = "hidden";
           if (currentPlayer - 2 < 0) {
-            bonusStep = RacialDiscrimination(true);
-            mehetE(-8 + bonusStep, playerCollection[amountOfPlayers - 1]);
+            bonusStepTTT = RacialDiscrimination(true);
+            mehetE(-8 + bonusStepTTT, playerCollection[amountOfPlayers - 1]);
           } else {
-            bonusStep = RacialDiscrimination(false);
-            mehetE(-8 + bonusStep, playerCollection[currentPlayer - 2]);
+            bonusStepTTT = RacialDiscrimination(false);
+            mehetE(-8 + bonusStepTTT, playerCollection[currentPlayer - 2]);
           }
         };
         break;
