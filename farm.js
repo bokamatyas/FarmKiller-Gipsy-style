@@ -134,7 +134,7 @@ function movePlayer(player, skin) {
 // es, hogy akovetkezo mezonk minigame-e
 function mehetE(step, jatekos) {
   if (jatekos.nextPosition + step <= 63) {
-    jatekos.nextPosition += 18; //! lehet ez miatt nem mukodott az egyesevel leptetes mert alapbol odaleptette nem tudott mar lefutni
+    jatekos.nextPosition += step; //! lehet ez miatt nem mukodott az egyesevel leptetes mert alapbol odaleptette nem tudott mar lefutni
 
     // Teleport animáció
     jatekos.player.classList.remove("playerArrive");
@@ -146,7 +146,7 @@ function mehetE(step, jatekos) {
 
     switch (pos) {
       // ko papir ollo
-      case 19:
+      case 18:
         //Janken
         buttonPaper.disabled = false;
         buttonRock.disabled = false;
