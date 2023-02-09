@@ -1,10 +1,10 @@
-.cell {
+.ttt_cell {
     position: relative;
     overflow: hidden;
     border: 1px solid black;
     text-align: center;
   }
-.grid-row {
+.ttt_grid-row {
     display: flex;
 }
 

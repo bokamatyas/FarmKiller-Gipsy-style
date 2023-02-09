@@ -1,39 +1,48 @@
-const grid = document.querySelector("#grid");
+const tttGrid = document.querySelector('#ttt_wrapper');
+const tttResult = document.querySelector('#ttt_result');
 
-const rowNumber = 3;
-const columnNumber = 3;
-let flag = 0;
-let hasWinner = false;
+const ttt_rowNumber = 3;
+const ttt_columnNumber = 3;
+let ttt_flag = 0;
+let ttt_hasWinner = false;
 
-const winConditions = ["123", "147", "159", "258", "369", "357", "456", "789"];
+const ttt_winConditions = ["123", "147", "159", "258", "369", "357", "456", "789"];
 
-function createGrid() {
+class WinnerTTT {
+  constructor(miniGameWinner) {
+    this.miniGameWinner = miniGameWinner;
+  }
+}
+
+let ttt_gameWinner = new WinnerTTT("none");
+
+function ttt_createGrid(grid) {
   let div;
   let gridRow;
   let idNumber = 0;
-  for (let row = 0; row < rowNumber; row++) {
+  for (let row = 0; row < ttt_rowNumber; row++) {
     gridRow = document.createElement("div");
-    gridRow.className = "grid-row";
-    for (let column = 0; column < columnNumber; column++) {
+    gridRow.className = "ttt_grid-row";
+    for (let column = 0; column < ttt_columnNumber; column++) {
       idNumber++;
       div = document.createElement("div");
-      div.style.width = "50px";
-      div.style.height = "50px";
+      div.style.width = "150px";
+      div.style.height = "150px";
 
-      div.className = "cell";
+      div.className = "ttt_cell";
       div.id = `c${idNumber}`;
-      div.innerHTML = "p";
+      div.innerHTML = "";
 
       div.addEventListener("click", function () {
         if (!this.classList.contains("full")) {
-          if (flag == 0) {
+          if (ttt_flag == 0) {
             this.innerHTML = "X";
-            flag = 1;
+            ttt_flag = 1;
             this.classList.add("full");
-            checkResults();
-            if (flag == 1){
-              botPlaces();
-              checkResults();
+            ttt_checkResults();
+            if (ttt_flag == 1){
+              ttt_botPlaces();
+              ttt_checkResults();
             }          
           }
         }
@@ -45,7 +54,7 @@ function createGrid() {
   }
 }
 
-function botPlaces() {
+function ttt_botPlaces() {
   let cells = [];
   let place = Math.ceil(Math.random() * 9);
 
@@ -63,16 +72,16 @@ function botPlaces() {
 
   if (cell.classList.contains("full") == false) {
     cell.innerHTML = "O";
-    flag = 0;
+    ttt_flag = 0;
     cell.classList.add("full");
-    checkResults();
+    ttt_checkResults();
   } else {
-    botPlaces();
+    ttt_botPlaces();
     // checkResults();
   }
 }
 
-function checkResults() {
+function ttt_checkResults() {
   let resultChecker = ["E", "E", "E", "E", "E", "E", "E", "E", "E"];
   let resultONumber = [];
   let resultXNumber = [];
@@ -108,15 +117,15 @@ function checkResults() {
   console.log(resultO);
   console.log(resultX);
 
-  winConditions.forEach((condition) => {
+  ttt_winConditions.forEach((condition) => {
     console.log(condition);
     if (resultO.includes(condition[0])) {
       if (resultO.includes(condition[1])) {
         if (resultO.includes(condition[2])) {
 
-          cellPainter(condition[0], condition[1], condition[2])
-          hasWinner = true;
-          callWinner("O");
+          ttt_cellPainter(condition[0], condition[1], condition[2])
+          ttt_hasWinner = true;
+          ttt_callWinner("O");
         }
       }
     }
@@ -124,26 +133,33 @@ function checkResults() {
       if (resultX.includes(condition[1])) {
         if (resultX.includes(condition[2])) {
 
-          cellPainter(condition[0], condition[1], condition[2])
-          hasWinner = true;
-          callWinner("X");
+          ttt_cellPainter(condition[0], condition[1], condition[2])
+          ttt_hasWinner = true;
+          ttt_callWinner("X");
         }
       }
     }
   });
   let overloadChecker = document.querySelectorAll(".full");
-  if (overloadChecker.length == 9 && !hasWinner) {
-    alert("draw");
+  if (overloadChecker.length == 9 && !ttt_hasWinner) {
+    ttt_callWinner("draw");
   }
   return null;
 }
 
-function callWinner(winner) {
-  flag = 2;
-  alert(`${winner} won!`);
+function ttt_callWinner(winner) {
+  ttt_flag = 2;
+  ttt_gameWinner.miniGameWinner = winner;
+  if(winner == "draw"){
+    tttResult.innerHTML = `Döntetlen!`;
+  }
+  else{
+    tttResult.innerHTML = `${winner} nyert!`;
+  }
+  acknowledgeTTT.disabled = false;
 }
 
-function cellPainter(c1,c2,c3){
+function ttt_cellPainter(c1,c2,c3){
   let cell1 = document.querySelector(`#c${c1}`)
           cell1.style.backgroundColor = "yellow";
           let cell2 = document.querySelector(`#c${c2}`)
@@ -152,4 +168,4 @@ function cellPainter(c1,c2,c3){
           cell3.style.backgroundColor = "yellow";
 }
 
-createGrid();
+ttt_createGrid(tttGrid);

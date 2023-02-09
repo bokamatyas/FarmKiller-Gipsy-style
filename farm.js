@@ -33,6 +33,11 @@ const acknowledgeNorina = document.querySelector("#ok2");
 const erikGame = document.querySelector("#erik");
 const acknowledgeErik = document.querySelector("#ok3");
 
+//minigame:TicTacToe
+const ticTacToeGame = document.querySelector("#tic-tac-toe");
+const acknowledgeTTT = document.querySelector("#ok4");
+const resultTTT = document.querySelector('#ttt_result');
+
 const current = document.querySelector("#current");
 const rassWrap = document.querySelector(".rass-wrap");
 
@@ -129,7 +134,7 @@ function movePlayer(player, skin) {
 // es, hogy akovetkezo mezonk minigame-e
 function mehetE(step, jatekos) {
   if (jatekos.nextPosition + step <= 63) {
-    jatekos.nextPosition += step; //! lehet ez miatt nem mukodott az egyesevel leptetes mert alapbol odaleptette nem tudott mar lefutni
+    jatekos.nextPosition += 18; //! lehet ez miatt nem mukodott az egyesevel leptetes mert alapbol odaleptette nem tudott mar lefutni
 
     // Teleport animáció
     jatekos.player.classList.remove("playerArrive");
@@ -141,7 +146,7 @@ function mehetE(step, jatekos) {
 
     switch (pos) {
       // ko papir ollo
-      case 18:
+      case 19:
         //Janken
         buttonPaper.disabled = false;
         buttonRock.disabled = false;
@@ -204,8 +209,28 @@ function mehetE(step, jatekos) {
         break;
 
       // tictactoe
-      case 55:
-        // TODO
+      case 51:
+        acknowledgeTTT.disabled = true;
+        let gaymer = ttt_gameWinner;
+        diceImg.disabled = true;
+        diceOFF.style.visibility = "visible";
+        ticTacToeGame.className = "tictactoe";
+        acknowledgeTTT.onclick = function () {
+          tttGrid.innerHTML = "";
+          ttt_createGrid(tttGrid);
+          resultTTT.innerHTML = "";
+          ttt_flag = 0;
+          ticTacToeGame.className = "minigameOFF";
+          diceImg.disabled = false;
+          diceOFF.style.visibility = "hidden";
+          if (currentPlayer - 2 < 0) {
+            bonusStep = RacialDiscrimination(true);
+            mehetE(-8 + bonusStep, playerCollection[amountOfPlayers - 1]);
+          } else {
+            bonusStep = RacialDiscrimination(false);
+            mehetE(-8 + bonusStep, playerCollection[currentPlayer - 2]);
+          }
+        };
         break;
     }
 

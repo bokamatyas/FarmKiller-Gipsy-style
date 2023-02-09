@@ -34,7 +34,7 @@ function botPlays(playerPick) {
   if (playerPick != pick) {
     checkResults(playerPick, pick);
   } else {
-    result.innerHTML = "draw";
+    result.innerHTML = "Döntetlen";
     rockButton.disabled = true;
     paperButton.disabled = true;
     scissorsButton.disabled = true;
@@ -46,14 +46,14 @@ function checkResults(PP, BP) {
   console.log(PP);
   console.log(BP);
   if (winConditions.includes(PP + BP) == true) {
-    result.innerHTML = "player wins";
+    result.innerHTML = "Nyertél!";
     rockButton.disabled = true;
     paperButton.disabled = true;
     scissorsButton.disabled = true;
     gameWinner.miniGameWinner = "player";
   }
   if (winConditions.includes(PP + BP) == false) {
-    result.innerHTML = "bot wins";
+    result.innerHTML = "Vesztettél :(";
     rockButton.disabled = true;
     paperButton.disabled = true;
     scissorsButton.disabled = true;

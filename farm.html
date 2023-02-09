@@ -1,96 +1,105 @@
 <!DOCTYPE html>
 <html lang="hu">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FarmKiller</title>
-    <link rel="stylesheet" href="farm.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Solitreo&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div id="contains-logo"></div>
 
-    <div id="side" class="left">
-      <!-- dobokocka kep -->
-      <div id="diceWrap">
-        <div class="contains-dice">
-          <button class="dice-img" disabled="true">
-            <div class="OFF"></div>
-          </button>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FarmKiller</title>
+  <link rel="stylesheet" href="farm.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Solitreo&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="contains-logo"></div>
+
+  <div id="side" class="left">
+    <!-- dobokocka kep -->
+    <div id="diceWrap">
+      <div class="contains-dice">
+        <button class="dice-img" disabled="true">
+          <div class="OFF"></div>
+        </button>
       </div>
-      <hr>
-      <!-- játékosszám -->
-      <p id="CurrentLabel">Lép:</p>
-      <div id="current">1. játékos</div>
+    </div>
+    <hr>
+    <!-- játékosszám -->
+    <p id="CurrentLabel">Lép:</p>
+    <div id="current">1. játékos</div>
+  </div>
+
+  <!-- a palya es minden game -->
+  <div class="grid-container left">
+
+    <!--  karakterszam valasztasa -->
+
+    <div class="contains-buttons">
+      <button id="btn2player" class="btn">2 játékos</button>
+      <button id="btn3player" class="btn">3 játékos</button>
+      <button id="btn4player" class="btn">4 játékos</button>
     </div>
 
-    <!-- a palya es minden game -->
-    <div class="grid-container left">
-      
-      <!--  karakterszam valasztasa -->
-      
-      <div class="contains-buttons">
-        <button id="btn2player" class="btn">2 játékos</button>
-        <button id="btn3player" class="btn">3 játékos</button>
-        <button id="btn4player" class="btn">4 játékos</button>
-      </div>
+    <!-- karakter rasszanak valasztasa -->
+    <div class="rass-wrap"></div>
 
-      <!-- karakter rasszanak valasztasa -->
-      <div class="rass-wrap"></div>
+    <!-- karakter kinezetenek kivalasztasa -->
+    <div class="characters-wrap"></div>
 
-      <!-- karakter kinezetenek kivalasztasa -->
-      <div class="characters-wrap"></div>
+    <!-- alappalya kepe -->
+    <div class="img"></div>
 
-      <!-- alappalya kepe -->
-      <div class="img"></div>
-
-      <!-- ko papir ollo minigame -->
-      <div id="janken" class="minigameOFF">
+    <!-- ko papir ollo minigame -->
+    <div id="janken" class="minigameOFF">
+      <div id="janken_wrapper">
+        <div class="RPS">Kő, papír, olló</div>
+        <div class="RPS2">Ellenfél játszotta:</div>
         <div class="field"></div>
         <div class="result"></div>
-        <button id="rock-button">rock</button>
-        <button id="paper-button">paper</button>
-        <button id="scissors-button">scissors</button>
+        <button id="rock-button">Kő</button>
+        <button id="paper-button">Papír</button>
+        <button id="scissors-button">Olló</button>
         <button id="ok">OK</button>
       </div>
-
-      <!-- norina surprise -->
-      <div id="norina" class="minigameOFF">
-        <img id="norinaimg" src="minigames/Noryna.png" alt="norina" />
-        <button id="ok2">
-          Megnyalom a virgácsot
-          <span class="material-symbols-outlined">
-            sentiment_very_satisfied
-          </span>
-        </button>
-      </div>
-
-      <!-- erik surprise -->
-      <div id="erik" class="minigameOFF">
-        <img id="erikimg" src="minigames/erik.jpg" alt="erikABuvosOrias" />
-        <button id="ok3">
-          <span class="material-symbols-outlined">
-            sentiment_very_satisfied
-          </span>
-        </button>
-
-        <!-- tictactoe minigame -->
-      </div>
     </div>
-    <!-- gyoztes jelzese -->
-    <p class="winner"></p>
-    <script src="farm.js"></script>
-    <script src="minigames/Janken/janken.js"></script>
-  </body>
+
+    <!-- norina surprise -->
+    <div id="norina" class="minigameOFF">
+      <img id="norinaimg" src="minigames/Noryna.png" alt="norina" />
+      <button id="ok2">
+        Megnyalom a virgácsot
+        <span class="material-symbols-outlined">
+          sentiment_very_satisfied
+        </span>
+      </button>
+    </div>
+
+    <!-- erik surprise -->
+    <div id="erik" class="minigameOFF">
+      <img id="erikimg" src="minigames/erik.jpg" alt="erikABuvosOrias" />
+      <button id="ok3">
+        <span class="material-symbols-outlined">
+          sentiment_very_satisfied
+        </span>
+      </button>
+    </div>
+    <!-- tictactoe minigame -->
+    <div id="tic-tac-toe" class="minigameOFF">
+      <p>TicTacToe</p>
+      <div id="ttt_wrapper">
+
+      </div>
+      <p><span id="ttt_result"></span></p>
+      <button id="ok4">OK</button>
+    </div>
+  </div>
+  <!-- gyoztes jelzese -->
+  <p class="winner"></p>
+  <script src="farm.js"></script>
+  <script src="minigames/Janken/janken.js"></script>
+  <script src="minigames/tictactoe/tictactoe.js"></script>
+</body>
+
 </html>
