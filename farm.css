@@ -149,7 +149,8 @@ body {
 /* teszt */
 .surprise {
   z-index: 1;
-  background-color: blue;
+  background-image: url(img/surprise.png);
+  background-size: cover;
   position: relative;
   overflow: hidden;
 }
