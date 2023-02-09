@@ -16,7 +16,7 @@ const btn2player = document.querySelector("#btn2player");
 const btn3player = document.querySelector("#btn3player");
 const btn4player = document.querySelector("#btn4player");
 const charactersWrap = document.querySelector(".characters-wrap");
-const winner = document.querySelector(".winner");
+const winner = document.querySelector("#winner");
 
 // minigame:Janken
 const jankenGame = document.querySelector("#janken");
@@ -240,10 +240,11 @@ function mehetE(step, jatekos) {
 
     // gyozelem eseten leallitja a jatekot, nem engedi, hogy a dobokocka kifagyjon
     if (jatekos.nextPosition == 63) {
-      winner.innerHTML = `${currentPlayer}. játékos a győztes`;
+      //winner.innerHTML = `${currentPlayer}. játékos a győztes`;
       image = document.createElement("img");
-      image.src = `img/Dice/winner.jpg`;
+      image.src = `img/Dice/winner.png`;
       winner.append(image);
+      winner.className = "winner";
       containsDice.innerHTML = "";
     } else {
       if (step < -6) {
