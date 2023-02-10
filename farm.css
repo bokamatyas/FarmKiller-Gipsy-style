@@ -7,6 +7,21 @@ body {
   background-color: #7cca4bba;
 }
 
+.rass-wrap{
+  display: flex;
+  gap: 40px;
+}
+
+.contains-buttons{
+  display: flex;
+  gap: 160px;
+}
+
+.kopapirollo_buttons {
+  display: flex;
+  gap: 50px;
+}
+
 #contains-logo {
   margin-left: auto;
   margin-right: auto;
@@ -67,10 +82,9 @@ body {
   animation: none;
 }
 
-/* .characters-wrap {
-  /* margin-bottom: 300px; */
-  /* display: none; */
-/*}*/
+.characters-wrap {
+  margin-left: 200px;
+}
 
 .grid-container {
   width: 1200px;
@@ -130,6 +144,7 @@ body {
   width: 300px;
   height: 150px;
   font-size: 50px;
+  margin-left: 200px;
 }
 
 .characterImage {
@@ -328,12 +343,12 @@ body {
 #side{
   padding: 40px;
   margin: 20px;
-  
+
   /* WIP */
   /* background-image: url(); */
 
   background-color: lightgray;
-  
+
   overflow: hidden;
   border: 10px ridge rgb(230, 13, 38);
 }
@@ -361,11 +376,11 @@ body {
 
 @keyframes playerWarp {
   from{
-    opacity: 1; 
+    opacity: 1;
     transform: rotate(0deg);
   }
   to{
-    opacity: 0; 
+    opacity: 0;
     transform: rotate(360deg);
   }
 }
@@ -381,17 +396,17 @@ body {
   }
   to{
     background-image: url();
-    opacity: 1; 
+    opacity: 1;
     transform: rotate(0deg);
   }
 }
 
 #winner{
   border: 5px ridge crimson;
-  top: 100px;
-  left: 300px;
+  top: 310px;
+  left: 350px;
   height: 1200px;
-  width: 1200px;
+  width: 1450px;
   z-index: 5;
   position: absolute;
   visibility: visible;

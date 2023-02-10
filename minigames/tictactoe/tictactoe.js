@@ -114,11 +114,8 @@ function ttt_checkResults() {
     resultX += `${element}`;
   });
 
-  console.log(resultO);
-  console.log(resultX);
 
   ttt_winConditions.forEach((condition) => {
-    console.log(condition);
     if (resultO.includes(condition[0])) {
       if (resultO.includes(condition[1])) {
         if (resultO.includes(condition[2])) {
@@ -148,6 +145,7 @@ function ttt_checkResults() {
 }
 
 function ttt_callWinner(winner) {
+  console.log(winner);
   ttt_flag = 2;
   ttt_gameWinner.miniGameWinner = winner;
   if(winner == "draw"){
